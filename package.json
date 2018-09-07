@@ -1,0 +1,26 @@
+{
+  "name": "spinal-viewer-library",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build/spinalViewer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "createDoc": "./createDoc.sh",
+    "build": "babel src -d  build -s inline"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/spinalcom/spinal-models-context_studio/issues"
+  },
+  "homepage": "https://github.com/spinalcom/spinal-models-context_studio#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-es2015": "^6.24.1"
+  },
+  "dependencies": {
+    "jsdoc-to-markdown": "^4.0.1"
+  }
+}
