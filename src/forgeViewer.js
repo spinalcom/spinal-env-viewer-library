@@ -41,7 +41,7 @@ var ForgeViewer = class ForgeViewer extends SpinalViewer {
             resolve(dbId);
           },
           () => {
-            reject("No external id associated at this dbId");
+            reject("No dbId associated at this externalId");
           }
         );
       }
@@ -134,26 +134,77 @@ var ForgeViewer = class ForgeViewer extends SpinalViewer {
     });
   }
 
-  /**
-   *
-   */
-  sweep() {}
 
   /**
-   *This function takes 3 parameters, appId (the application's ID), externalId (the id of the coloring element) and color. It colors the element(s) according to the color and the appId
+   *This function takes 3 parameters, appId (the application's ID), externalId (the id of the coloring element) and color (color name or hexadecimal color). It colors the element(s) according to the color and the appId
    *
    * @param {string} appId
    * @param {Array.<string>} externalId
    * @param {string} color
    */
-  colorObject(appId, externalId, color) {}
+  colorObject(appId, externalId, color) {
+    var allPromises = [];
+
+    if (!Array.isArray(externalId))
+      externalId = [externalId];
+
+    for (var i = 0; i < externalId.length; i++) {
+      allPromises.push(this.getDbIdByExternalId(externalId[i]));
+    }
+
+    Promise.all(allPromises).then(ids => {
+      this.viewer.setColorMaterial(ids, color, appId);
+    })
+
+
+  }
 
   /**
    * This function takes in parameter an appId and external_id/list of external_id. It restore the default color of the element(s) according to the appId
    * @param {String} appId
    * @param {Array.<string>} externalId
    */
-  restoreColor(appId, externalId) {}
+  restoreColor(appId, externalId) {
+    var allPromises = [];
+
+    if (!Array.isArray(externalId))
+      externalId = [externalId];
+
+    for (var i = 0; i < externalId.length; i++) {
+      allPromises.push(this.getDbIdByExternalId(externalId[i]));
+    }
+
+    Promise.all(allPromises).then(el => {
+      this.viewer.restoreColorMaterial(el, appId);
+    })
+
+  }
+
+
+  /**
+   * 
+   * @param {number} rootId 
+   * @param {function} callback
+   */
+  sweep(rootId = this.viewer.model.getRootId(), callback) {
+    // var rootId = this.viewer.model.getRootId();
+
+    return new Promise((resolve) => {
+      this.model.getData().instanceTree.enumNodeChildren(rootId, el => {
+        if (el) {
+          callback(el);
+          this.sweep(el, callback).then(() => {
+            resolve(false);
+          });
+        } else {
+          resolve(false);
+        }
+
+      })
+    })
+
+  }
+
 
   /**
    *
