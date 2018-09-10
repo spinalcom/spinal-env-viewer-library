@@ -1,5 +1,13 @@
 const SpinalViewer = require("./spinalViewer");
 
+
+/**
+ *
+ *
+ * @class ForgeViewer
+ * @extends {SpinalViewer}
+ */
+
 var ForgeViewer = class ForgeViewer extends SpinalViewer {
   constructor(viewer) {
     super();
