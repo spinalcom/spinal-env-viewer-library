@@ -16,10 +16,11 @@
     * [.sweep(rootId, callback)](#ForgeViewer+sweep)
     * [.getCamera()](#ForgeViewer+getCamera)
     * [.setCamera()](#ForgeViewer+setCamera)
-    * [.resgisterEvent()](#ForgeViewer+resgisterEvent)
     * [.getCutPlanes()](#ForgeViewer+getCutPlanes)
     * [.setCutPlanes()](#ForgeViewer+setCutPlanes)
-    * [.createPanel()](#ForgeViewer+createPanel)
+    * [.resgisterEvent()](#ForgeViewer+resgisterEvent)
+    * [.createPanel(panelTitle, width, height, top)](#ForgeViewer+createPanel)
+    * [.getProps(externalId)](#ForgeViewer+getProps)
 
 <a name="ForgeViewer+selectObject"></a>
 
@@ -120,24 +121,49 @@ This function takes in parameter an appId and external_id/list of external_id. I
 <a name="ForgeViewer+getCamera"></a>
 
 ### forgeViewer.getCamera()
+This Function returns the camera and it (camera) can be modified by the user
+
 **Kind**: instance method of [<code>ForgeViewer</code>](#ForgeViewer)  
 <a name="ForgeViewer+setCamera"></a>
 
 ### forgeViewer.setCamera()
 **Kind**: instance method of [<code>ForgeViewer</code>](#ForgeViewer)  
-<a name="ForgeViewer+resgisterEvent"></a>
-
-### forgeViewer.resgisterEvent()
-**Kind**: instance method of [<code>ForgeViewer</code>](#ForgeViewer)  
 <a name="ForgeViewer+getCutPlanes"></a>
 
 ### forgeViewer.getCutPlanes()
+returns a promise of a list of active cut Planes
+
 **Kind**: instance method of [<code>ForgeViewer</code>](#ForgeViewer)  
 <a name="ForgeViewer+setCutPlanes"></a>
 
 ### forgeViewer.setCutPlanes()
 **Kind**: instance method of [<code>ForgeViewer</code>](#ForgeViewer)  
+<a name="ForgeViewer+resgisterEvent"></a>
+
+### forgeViewer.resgisterEvent()
+**Kind**: instance method of [<code>ForgeViewer</code>](#ForgeViewer)  
 <a name="ForgeViewer+createPanel"></a>
 
-### forgeViewer.createPanel()
+### forgeViewer.createPanel(panelTitle, width, height, top)
+this function creates a panel in the viewer, it takes as parameters the panelTitle(string), the panel width(number in percent, default value is 40), the panel height (number in percent, default value is 80) and the vertical position of the panel : top(number in px, default value is 0px)
+
 **Kind**: instance method of [<code>ForgeViewer</code>](#ForgeViewer)  
+
+| Param | Type | Default |
+| --- | --- | --- |
+| panelTitle | <code>string</code> |  | 
+| width | <code>number</code> | <code>40</code> | 
+| height | <code>number</code> | <code>80</code> | 
+| top | <code>number</code> | <code>0</code> | 
+
+<a name="ForgeViewer+getProps"></a>
+
+### forgeViewer.getProps(externalId)
+This function takes in params an externalId(string) and returns item properties
+
+**Kind**: instance method of [<code>ForgeViewer</code>](#ForgeViewer)  
+
+| Param | Type |
+| --- | --- |
+| externalId | <code>string</code> | 
+

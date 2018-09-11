@@ -215,34 +215,93 @@ var ForgeViewer = class ForgeViewer extends SpinalViewer {
 
 
   /**
-   *
+   * This Function returns the camera and it (camera) can be modified by the user
    */
-  getCamera() {}
+  getCamera() {
+    return new Promise((resolve, reject) => {
+      resolve(this.viewer.getCamera());
+    });
+
+  }
 
   /**
    *
    */
   setCamera() {}
 
-  /**
-   *
-   */
-  resgisterEvent() {}
 
   /**
-   *
+   * returns a promise of a list of active cut Planes
    */
-  getCutPlanes() {}
+  getCutPlanes() {
+    return new Promise((resolve, reject) => {
+      resolve(this.viewer.getCutPlanes());
+    });
+  }
+
+
+
 
   /**
    *
    */
   setCutPlanes() {}
 
+
   /**
    *
    */
-  createPanel() {}
-};
+  resgisterEvent() {}
 
+
+
+
+  /**
+   * 
+   * this function creates a panel in the viewer, it takes as parameters the panelTitle(string), the panel width(number in percent, default value is 40), the panel height (number in percent, default value is 80) and the vertical position of the panel : top(number in px, default value is 0px) 
+   * 
+   * @param {string} panelTitle 
+   * @param {number} width 
+   * @param {number} height 
+   * @param {number} top 
+   */
+  createPanel(panelTitle, width = 40, height = 80, top = 0) {
+    var panel = new PanelClass(this.viewer, panelTitle);
+    panel.container.style.top = top + "px";
+    panel.container.style.width = width + "%";
+    panel.container.style.height = height + "%";
+
+    var div = document.createElement('div');
+    div.className = panel.container.id + panelTitle;
+    div.style.width = "100%";
+    div.style.height = "calc(100% - 55px)";
+    div.style.overflowY = "auto";
+
+    panel.container.appendChild(div);
+
+
+    return panel;
+  }
+
+  /**
+   * This function takes in params an externalId(string) and returns item properties
+   * @param {string} externalId 
+   */
+  getProps(externalId) {
+
+    return new Promise((resolve, reject) => {
+      this.getDbIdByExternalId(externalId).then(el => {
+        this.viewer.model.getProperties(
+          el,
+          itemProperties => {
+            resolve(itemProperties);
+          }, () => {
+            reject("No Item found");
+          });
+      });
+
+    })
+  }
+
+}
 module.exports = ForgeViewer;
