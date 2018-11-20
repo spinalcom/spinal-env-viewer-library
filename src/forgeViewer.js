@@ -9,11 +9,29 @@ const SpinalViewer = require("./spinalViewer");
  */
 
 var ForgeViewer = class ForgeViewer extends SpinalViewer {
-  constructor(viewer) {
+  constructor(viewer,options) {
     super();
-    this.viewer = viewer;
+    Autodesk.Viewing.Extension.call(this, viewer, options);
+   this.viewer = viewer;
     this.externalIdMapping = {};
+    window.spinal.viewer = this;
   }
+
+
+  load() {
+    // this.initialize();
+    return true;
+  }
+ 
+  unload() {
+    // this.viewer.toolbar.removeControl(this.subToolbar);
+    return true;
+  }
+   // This function is to create your button on viewer, it used autodesk forge api
+ 
+  // initialize() {
+    
+  // }
 
   /**
    * This function takes as parameter an external_id (string) or a list of external_id and selects the item(s) corresponding to this/these external_id
@@ -304,4 +322,10 @@ var ForgeViewer = class ForgeViewer extends SpinalViewer {
   }
 
 }
-module.exports = ForgeViewer;
+
+
+Autodesk.Viewing.theExtensionManager.registerExtension(
+  "ForgeViewer",
+  ForgeViewer
+); // this is the register of your class
+window.spinal.ForgeExtentionManager.addExtention("ForgeViewer");
