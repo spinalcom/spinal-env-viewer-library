@@ -1,5 +1,5 @@
 {
-  "name": "spinal-viewer-library",
+  "name": "spinal-env-viewer-library",
   "version": "1.0.0",
   "description": "",
   "main": "build/spinalViewer.js",
