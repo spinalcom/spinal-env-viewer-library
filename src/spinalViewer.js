@@ -1,10 +1,27 @@
 const SpinalViewer = class {
-  constructor() {
-    if (this.constructor === SpinalViewer) {
-      throw new TypeError(
-        'Abstract class "SpinalViewer" cannot be instantiated directly')
-    }
+  constructor(viewer,options) {
+   Autodesk.Viewing.Extension.call(this, viewer, options);
+   this.viewer = viewer;
+    //if (this.constructor === SpinalViewer) {
+    //  throw new TypeError(
+    //    'Abstract class "SpinalViewer" cannot be instantiated directly')
+    //}
   }
+  
+  load() {
+   this.initialize();
+   return true;
+ }
+
+ unload() {
+   // this.viewer.toolbar.removeControl(this.subToolbar);
+   return true;
+ }
+  // This function is to create your button on viewer, it used autodesk forge api
+
+ initialize() {
+   
+ }
 
   selectObject(dbIds) {
     throw new Error('You must implement selectObject function');
@@ -76,5 +93,10 @@ const SpinalViewer = class {
   }
 
 }
-
+   Autodesk.Viewing.theExtensionManager.registerExtension(
+     "SpinalViewer",
+     SpinalViewer
+   ); // this is the register of your class
+   window.spinal.ForgeExtentionManager.addExtention(SpinalViewer);
+ }
 module.exports = SpinalViewer;
